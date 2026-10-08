@@ -3,14 +3,16 @@ import { Check, Minus } from "lucide-react";
 import { localRun, type DeskRun } from "@/lib/desk/local-run";
 import { runDesk } from "@/lib/desk/run-desk";
 import { GAPS, MISSIONS, SEATS, seatById, type SeatId } from "@/lib/desk/roster";
+import { MarketingManager } from "@/components/marketing-manager";
 
-type Mode = "team" | "gaps" | "today";
+type Mode = "team" | "gaps" | "today" | "marketing";
 type Note = "idle" | "draft" | "live" | "desk";
 
 const MODES: { id: Mode; label: string; hint: string }[] = [
   { id: "team", label: "Team", hint: "One brief, four seats" },
   { id: "gaps", label: "Gaps", hint: "Turn weaknesses off" },
   { id: "today", label: "Today", hint: "Ship before the day ends" },
+  { id: "marketing", label: "Marketing Manager", hint: "One post a day. Check growth." },
 ];
 
 const BEATS = ["Brief", "Seats", "Clash", "Ship"];
@@ -83,7 +85,7 @@ export function AllFour() {
         <p className="font-display text-3xl tabular-nums text-fg">{clock}</p>
       </header>
 
-      <nav className="mt-5 grid grid-cols-3 gap-2" aria-label="Modes">
+      <nav className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Home cards">
         {MODES.map((item) => {
           const active = mode === item.id;
           return (
@@ -109,11 +111,13 @@ export function AllFour() {
       </nav>
 
       <div className="mt-6">
-        {mode === "gaps" ? (
+        {mode === "marketing" ? (
+          <MarketingManager />
+        ) : mode === "gaps" ? (
           <GapsBoard on={on} setOn={setOn} />
         ) : (
           <Work
-            mode={mode}
+            mode={mode === "today" ? "today" : "team"}
             brief={brief}
             setBrief={setBrief}
             run={run}

@@ -1,6 +1,6 @@
 # All Four
 
-ChatGPT, Claude, Copilot, and Grok on one desk. Each seat covers a weakness the others leave open. Three modes: Team, Gaps, and Today.
+ChatGPT, Claude, Copilot, and Grok on one desk. Each seat covers a weakness the others leave open. Four home cards: Team, Gaps, Today, and Marketing Manager. The marketing card is one daily post instruction, a four-seat draft, and a growth check. See docs/MARKETING.md.
 
 Grok writes the four seats. The other names are roles on the desk, not live calls to those companies.
 
