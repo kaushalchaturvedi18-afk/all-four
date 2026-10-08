@@ -4,8 +4,9 @@ import { localRun, type DeskRun } from "@/lib/desk/local-run";
 import { runDesk } from "@/lib/desk/run-desk";
 import { GAPS, MISSIONS, SEATS, seatById, type SeatId } from "@/lib/desk/roster";
 import { MarketingManager } from "@/components/marketing-manager";
+import { N8nDesk } from "@/components/n8n-desk";
 
-type Mode = "team" | "gaps" | "today" | "marketing";
+type Mode = "team" | "gaps" | "today" | "marketing" | "n8n";
 type Note = "idle" | "draft" | "live" | "desk";
 
 const MODES: { id: Mode; label: string; hint: string }[] = [
@@ -13,6 +14,7 @@ const MODES: { id: Mode; label: string; hint: string }[] = [
   { id: "gaps", label: "Gaps", hint: "Turn weaknesses off" },
   { id: "today", label: "Today", hint: "Ship before the day ends" },
   { id: "marketing", label: "Marketing Manager", hint: "One post a day. Check growth." },
+  { id: "n8n", label: "n8n Agents", hint: "Outside agents. You still approve." },
 ];
 
 const BEATS = ["Brief", "Seats", "Clash", "Ship"];
@@ -85,7 +87,7 @@ export function AllFour() {
         <p className="font-display text-3xl tabular-nums text-fg">{clock}</p>
       </header>
 
-      <nav className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Home cards">
+      <nav className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3" aria-label="Home cards">
         {MODES.map((item) => {
           const active = mode === item.id;
           return (
@@ -111,7 +113,9 @@ export function AllFour() {
       </nav>
 
       <div className="mt-6">
-        {mode === "marketing" ? (
+        {mode === "n8n" ? (
+          <N8nDesk />
+        ) : mode === "marketing" ? (
           <MarketingManager />
         ) : mode === "gaps" ? (
           <GapsBoard on={on} setOn={setOn} />
